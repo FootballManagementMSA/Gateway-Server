@@ -49,4 +49,4 @@ jobs:
         run: |
               sudo docker ps -q --filter "name=gateway-server" | grep -q . && sudo docker stop "gateway-server" && sudo docker rmi  "bes99/gateway-server"
               sudo docker pull bes99/gateway-server
-              sudo docker run -d --name eureka-server --rm -p 8000:8000 bes99/gateway-server
+              sudo docker run -d --name gateway-server --rm -p 8000:8000 bes99/gateway-server
