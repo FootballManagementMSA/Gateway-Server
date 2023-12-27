@@ -40,12 +40,13 @@ jobs:
         docker tag $REPO:latest $NAME/$REPO:latest
         docker push $NAME/$REPO:latest
         
-  # deploy:
-  #   needs: build
-  #   name: Deploy
-  #   runs-on: [ self-hosted ]
-  #   steps:
-  #     - name: Docker run
-  #       run: |
-  #             sudo docker ps -q --filter "name=euro-planner" | grep -q . && sudo docker stop "euro-planner" && sudo docker rmi  "euics/euro-planner"
-  #             sudo docker run -d --name euro-planner --rm -p 8080:8080 euics/euro-planner
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: [ self-hosted ]
+    steps:
+      - name: Docker run
+        run: |
+              sudo docker ps -q --filter "name=gateway-server" | grep -q . && sudo docker stop "gateway-server" && sudo docker rmi  "bes99/gateway-server"
+              sudo docker pull bes99/gateway-server
+              sudo docker run -d --name gateway-server --rm -p 8000:8000 bes99/gateway-server
