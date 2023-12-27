@@ -7,7 +7,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://3.34.94.202:8761//eureka
+      defaultZone: http://43.203.50.18:8761//eureka
 
 spring:
   cloud:
