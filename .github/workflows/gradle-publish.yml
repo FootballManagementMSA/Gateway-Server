@@ -24,6 +24,24 @@ jobs:
       
     - name: Build with Gradle
       run: ./gradlew build
+
+    - name: Set YML
+      run: |
+        mkdir -p src/main/resources
+        echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml
+        find src
+
+    - name: Set YML LOCAL
+      run: |
+        mkdir -p src/main/resources
+        echo "${{ secrets.APPLICATION_LOCAL_YML }}" | base64 --decode > src/main/resources/application-local.yml
+        find src
+
+    - name: Set YML PRODUCTION
+      run: |
+        mkdir -p src/main/resources
+        echo "${{ secrets.APPLICATION_PRODUCTION_YML }}" | base64 --decode > src/main/resources/application-production.yml
+        find src
       
     - name: Login to DockerHub
       uses: docker/login-action@v1
