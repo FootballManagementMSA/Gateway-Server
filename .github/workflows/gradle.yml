@@ -24,12 +24,6 @@ jobs:
         mkdir -p src/main/resources
         echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml
       shell: bash
-
-    - name: Set YML PRODUCTION
-      run: |
-        mkdir -p src/main/resources
-        echo "${{ secrets.APPLICATION_PRODUCTION_YML }}" | base64 --decode > src/main/resources/application-production.yml
-      shell: bash
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
