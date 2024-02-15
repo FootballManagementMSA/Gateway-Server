@@ -29,6 +29,11 @@ dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-config', version: '4.0.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '3.0.1'
 
+    // JwtToken
+    implementation group: 'io.jsonwebtoken',name:'jjwt',version:'0.9.1'
+
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-loadbalancer
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-loadbalancer', version: '4.1.1'
 }
 
 dependencyManagement {
