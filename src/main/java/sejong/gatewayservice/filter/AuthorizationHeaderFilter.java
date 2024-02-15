@@ -2,6 +2,7 @@ package sejong.gatewayservice.filter;
 
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.env.Environment;
@@ -16,6 +17,9 @@ import reactor.core.publisher.Mono;
 @Component
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
     Environment env;
+
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
     public AuthorizationHeaderFilter(Environment env) {
         super(Config.class);
@@ -49,15 +53,17 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         String subject = null;
 
         try {
-            subject = Jwts.parser().setSigningKey(env.getProperty("token.secret")) // JWT 내부 sub의 내용을 디코딩시킨다
-                    .parseClaimsJws(jwt).getBody() // parseClaimsJws: 문자열 데이터로 파싱
+            subject = Jwts.parser().setSigningKey(jwtSecret)
+                    .parseClaimsJws(jwt).getBody()
                     .getSubject();
         }catch (Exception e){
             returnValue = false;
         }
+
         if(subject == null || subject.isEmpty()){
             returnValue = false;
         }
+
         return returnValue;
     }
 
