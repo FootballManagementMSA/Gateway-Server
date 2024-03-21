@@ -38,6 +38,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-loadbalancer
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-loadbalancer', version: '4.1.1'
+
+    // prometheus
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '3.1.6'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 }
 
 dependencyManagement {
