@@ -46,8 +46,8 @@ jobs:
 
     - name: build and release to DockerHub 
       env:
-        NAME: bes99 # 계정 명
-        REPO: gateway-server # 레포 이름
+        NAME: ${{secrets.DOCKERHUB_USERNAME}}
+        REPO: gateway-server
       run: |
         docker build -t $REPO .
         docker tag $REPO:latest $NAME/$REPO:latest
@@ -60,6 +60,6 @@ jobs:
     steps:
       - name: Docker run
         run: |
-              sudo docker ps -q --filter "name=gateway-server" | grep -q . && sudo docker stop "gateway-server" && sudo docker rmi -f "bes99/gateway-server"
-              sudo docker pull bes99/gateway-server
-              sudo docker run -d --name gateway-server --rm -p 8000:8000 bes99/gateway-server
+              sudo docker ps -q --filter "name=gateway-server" | grep -q . && sudo docker stop "gateway-server" && sudo docker rmi -f "${{secrets.DOCKERHUB_USERNAME}}/gateway-server"
+              sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/gateway-server
+              sudo docker run -d --name gateway-server --rm -p 8000:8000 ${{secrets.DOCKERHUB_USERNAME}}/gateway-server
